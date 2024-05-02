@@ -37,25 +37,28 @@ struct ContentView: View {
     
     var themeChangers: some View {
         HStack(alignment: .center) {
-            themeChanger(to: "Xmas")
-            themeChanger(to: "Halloween")
-            themeChanger(to: "Animals")
+            ThemeButton(theme: "Xmas") { apply(theme: "Xmas")}
+            ThemeButton(theme: "Halloween") { apply(theme: "Halloween")}
+            ThemeButton(theme: "Animals") { apply(theme: "Animals")}
         }
     }
     
-    func themeChanger(to themeName: String) -> some View {
-        Button(action: {
-            changeTheme(to: themeName)
-        }, label: {
-            Text(themeName)
-        })
-        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
-        .border(.black)
-        .cornerRadius(3)
+    struct ThemeButton: View {
+        var theme: String
+        var action: () -> Void
+        
+        var body: some View {
+            Button(action: {
+                action()
+            }, label: {
+                Text(theme)
+            })
+            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+            .border(.black)}
     }
     
-    func changeTheme(to themeName: String) {
-        currentEmojis = switch themeName {
+    func apply(theme: String) {
+        currentEmojis = switch theme {
         case "Xmas" :
             emojisChristmas + emojisChristmas
         case "Halloween":
