@@ -11,14 +11,17 @@ enum Themes {
     enum ChristmasTheme {
         static let name = "Xmas"
         static let icon = "snowflake"
+        static let color: Color = .blue
     }
     enum HalloweenTheme {
         static let name = "Halloween"
         static let icon = "theatermasks.fill"
+        static let color: Color = .orange
     }
     enum AnimalsTheme {
         static let name = "Animals"
         static let icon = "pawprint.fill"
+        static let color: Color = .green
     }
 }
 
@@ -29,6 +32,7 @@ struct ContentView: View {
     let emojisAnimals = ["🐮", "🐶", "🐱", "🦆", "🐵", "🦊"]
     
     @State var currentEmojis: [String] = []
+    @State var currentColor: Color = .green
     
     var body: some View {
         VStack {
@@ -48,14 +52,20 @@ struct ContentView: View {
                 CardView(content: currentEmojis[index]).aspectRatio(2/3, contentMode: .fit)
             }
         }
-        .foregroundColor(.orange)
+        .foregroundColor(currentColor)
     }
     
     var themeChangers: some View {
         HStack(alignment: .bottom) {
-            ThemeButton(text: Themes.ChristmasTheme.name, imageName: Themes.ChristmasTheme.icon) { apply(theme: Themes.ChristmasTheme.name) }
-            ThemeButton(text: Themes.HalloweenTheme.name, imageName: Themes.HalloweenTheme.icon) { apply(theme: Themes.HalloweenTheme.name) }
-            ThemeButton(text: Themes.AnimalsTheme.name, imageName: Themes.AnimalsTheme.icon) { apply(theme: Themes.AnimalsTheme.name) }
+            ThemeButton(
+                text: Themes.ChristmasTheme.name,
+                imageName: Themes.ChristmasTheme.icon) { apply(theme: Themes.ChristmasTheme.name) }
+            ThemeButton(
+                text: Themes.HalloweenTheme.name,
+                imageName: Themes.HalloweenTheme.icon) { apply(theme: Themes.HalloweenTheme.name) }
+            ThemeButton(
+                text: Themes.AnimalsTheme.name,
+                imageName: Themes.AnimalsTheme.icon) { apply(theme: Themes.AnimalsTheme.name) }
         }
     }
     
@@ -79,15 +89,19 @@ struct ContentView: View {
     }
     
     func apply(theme: String) {
-        currentEmojis = switch theme {
+        switch theme {
         case Themes.ChristmasTheme.name :
-            emojisChristmas + emojisChristmas
+            currentEmojis = emojisChristmas + emojisChristmas
+            currentColor = Themes.ChristmasTheme.color
         case Themes.HalloweenTheme.name:
-            emojisHalloween + emojisHalloween
+            currentEmojis = emojisHalloween + emojisHalloween
+            currentColor = Themes.HalloweenTheme.color
         case Themes.AnimalsTheme.name:
-            emojisAnimals + emojisAnimals
+            currentEmojis = emojisAnimals + emojisAnimals
+            currentColor = Themes.AnimalsTheme.color
         default:
-            emojisAnimals + emojisAnimals
+            currentEmojis = emojisAnimals + emojisAnimals
+            currentColor = Themes.AnimalsTheme.color
         }
         currentEmojis.shuffle()
     }
