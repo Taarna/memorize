@@ -12,8 +12,7 @@ struct ContentView: View {
     let emojisHalloween = ["🎃", "👻", "🕸️", "👿", "🧟‍♀️", "💀", "😱", "👹", "🧙", "🍬", "🕷️", "🦇"]
     let emojisAnimals = ["🐮", "🐶", "🐱", "🦆", "🐵", "🦊", "🐸", "🦋", "🐢", "🪱", "🐌", "🐙"]
     
-    @State var emojis: [String] = []
-    @State var cardCount: Int = 0
+    @State var currentEmojis: [String] = []
     
     var body: some View {
         VStack {
@@ -22,47 +21,18 @@ struct ContentView: View {
                 cards
             }
             Spacer()
-            cardCountAdjusters
-            Spacer()
             themeChangers
         }
         .padding()
     }
     
-    var cardCountAdjusters: some View {
-        HStack {
-            cardRemover
-            Spacer()
-            cardAdder
-        }
-        .imageScale(.large)
-        .font(.largeTitle)
-    }
-    
     var cards: some View {
         LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
-            ForEach(0..<cardCount, id: \.self) { index in
-                CardView(content: emojis[index]).aspectRatio(2/3, contentMode: .fit)
+            ForEach(0..<currentEmojis.count, id: \.self) { index in
+                CardView(content: currentEmojis[index]).aspectRatio(2/3, contentMode: .fit)
             }
         }
         .foregroundColor(.orange)
-    }
-    
-    func cardCountAdjuster(by offset: Int, symbol: String) -> some View {
-        Button(action: {
-            cardCount += offset
-        }, label: {
-            Image(systemName: symbol)
-        })
-        .disabled(cardCount + offset < 1 || cardCount + offset > emojis.count)
-    }
-    
-    var cardRemover: some View {
-        return cardCountAdjuster(by: -1, symbol: "rectangle.stack.badge.minus.fill")
-    }
-    
-    var cardAdder: some View {
-        return cardCountAdjuster(by: 1, symbol: "rectangle.stack.badge.plus.fill")
     }
     
     var themeChangers: some View {
@@ -85,7 +55,7 @@ struct ContentView: View {
     }
     
     func changeTheme(to themeName: String) {
-        emojis = switch themeName {
+        currentEmojis = switch themeName {
         case "Xmas" :
             emojisChristmas
         case "Halloween":
