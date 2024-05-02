@@ -10,12 +10,15 @@ import SwiftUI
 enum Themes {
     enum ChristmasTheme {
         static let name = "Xmas"
+        static let icon = "snowflake"
     }
     enum HalloweenTheme {
         static let name = "Halloween"
+        static let icon = "theatermasks.fill"
     }
     enum AnimalsTheme {
         static let name = "Animals"
+        static let icon = "pawprint.fill"
     }
 }
 
@@ -50,21 +53,25 @@ struct ContentView: View {
     
     var themeChangers: some View {
         HStack(alignment: .center) {
-            ThemeButton(theme: Themes.ChristmasTheme.name) { apply(theme: Themes.ChristmasTheme.name)}
-            ThemeButton(theme: Themes.HalloweenTheme.name) { apply(theme: Themes.HalloweenTheme.name)}
-            ThemeButton(theme: Themes.AnimalsTheme.name) { apply(theme: Themes.AnimalsTheme.name)}
+            ThemeButton(text: Themes.ChristmasTheme.name, imageName: Themes.ChristmasTheme.icon) { apply(theme: Themes.ChristmasTheme.name) }
+            ThemeButton(text: Themes.HalloweenTheme.name, imageName: Themes.HalloweenTheme.icon) { apply(theme: Themes.HalloweenTheme.name) }
+            ThemeButton(text: Themes.AnimalsTheme.name, imageName: Themes.AnimalsTheme.icon) { apply(theme: Themes.AnimalsTheme.name) }
         }
     }
     
     struct ThemeButton: View {
-        var theme: String
+        var text: String
+        var imageName: String
         var action: () -> Void
         
         var body: some View {
             Button(action: {
                 action()
             }, label: {
-                Text(theme)
+                VStack {
+                    Image(systemName: imageName)
+                    Text(text)
+                }
             })
             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
             .border(.black)}
