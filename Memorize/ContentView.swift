@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    let emojis: [String] = ["🎃", "👻", "🕸️", "👿", "😍", "🦊", "🫣", "🤖", "🍆", "🍓", "🥎", "☎️"]
-    @State var cardCount: Int = 4
+    let emojisChristmas = ["🎄", "🎅", "❄️", "⛄️", "⛷️", "🌟", "🔔", "🦌", "🍾", "⛪️", "🦃", "🥳"]
+    let emojisHalloween = ["🎃", "👻", "🕸️", "👿", "🧟‍♀️", "💀", "😱", "👹", "🧙", "🍬", "🕷️", "🦇"]
+    let emojisAnimals = ["🐮", "🐶", "🐱", "🦆", "🐵", "🦊", "🐸", "🦋", "🐢", "🪱", "🐌", "🐙"]
+    
+    @State var emojis: [String] = []
+    @State var cardCount: Int = 0
     
     var body: some View {
         VStack {
@@ -19,6 +23,8 @@ struct ContentView: View {
             }
             Spacer()
             cardCountAdjusters
+            Spacer()
+            themeChangers
         }
         .padding()
     }
@@ -57,6 +63,38 @@ struct ContentView: View {
     
     var cardAdder: some View {
         return cardCountAdjuster(by: 1, symbol: "rectangle.stack.badge.plus.fill")
+    }
+    
+    var themeChangers: some View {
+        HStack(alignment: .center) {
+            themeChanger(to: "Xmas")
+            themeChanger(to: "Halloween")
+            themeChanger(to: "Animals")
+        }
+    }
+    
+    func themeChanger(to themeName: String) -> some View {
+        Button(action: {
+            changeTheme(to: themeName)
+        }, label: {
+            Text(themeName)
+        })
+        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+        .border(.black)
+        .cornerRadius(3)
+    }
+    
+    func changeTheme(to themeName: String) {
+        emojis = switch themeName {
+        case "Xmas" :
+            emojisChristmas
+        case "Halloween":
+            emojisHalloween
+        case "Animals":
+            emojisAnimals
+        default:
+            emojisAnimals
+        }
     }
 }
 
