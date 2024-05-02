@@ -7,6 +7,19 @@
 
 import SwiftUI
 
+enum Themes {
+    enum ChristmasTheme {
+        static let name = "Xmas"
+    }
+    enum HalloweenTheme {
+        static let name = "Halloween"
+    }
+    enum AnimalsTheme {
+        static let name = "Animals"
+    }
+}
+
+
 struct ContentView: View {
     let emojisChristmas = ["🎄", "🎅", "❄️", "⛄️"]
     let emojisHalloween = ["🎃", "👻", "🕸️", "👿", "🧟‍♀️"]
@@ -37,9 +50,9 @@ struct ContentView: View {
     
     var themeChangers: some View {
         HStack(alignment: .center) {
-            ThemeButton(theme: "Xmas") { apply(theme: "Xmas")}
-            ThemeButton(theme: "Halloween") { apply(theme: "Halloween")}
-            ThemeButton(theme: "Animals") { apply(theme: "Animals")}
+            ThemeButton(theme: Themes.ChristmasTheme.name) { apply(theme: Themes.ChristmasTheme.name)}
+            ThemeButton(theme: Themes.HalloweenTheme.name) { apply(theme: Themes.HalloweenTheme.name)}
+            ThemeButton(theme: Themes.AnimalsTheme.name) { apply(theme: Themes.AnimalsTheme.name)}
         }
     }
     
@@ -59,11 +72,11 @@ struct ContentView: View {
     
     func apply(theme: String) {
         currentEmojis = switch theme {
-        case "Xmas" :
+        case Themes.ChristmasTheme.name :
             emojisChristmas + emojisChristmas
-        case "Halloween":
+        case Themes.HalloweenTheme.name:
             emojisHalloween + emojisHalloween
-        case "Animals":
+        case Themes.AnimalsTheme.name:
             emojisAnimals + emojisAnimals
         default:
             emojisAnimals + emojisAnimals
