@@ -81,6 +81,7 @@ struct ContentView: View {
         default:
             emojisAnimals + emojisAnimals
         }
+        currentEmojis.shuffle()
     }
 }
 
