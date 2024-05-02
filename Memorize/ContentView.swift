@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    let emojisChristmas = ["🎄", "🎅", "❄️", "⛄️", "⛷️", "🌟", "🔔", "🦌", "🍾", "⛪️", "🦃", "🥳"]
-    let emojisHalloween = ["🎃", "👻", "🕸️", "👿", "🧟‍♀️", "💀", "😱", "👹", "🧙", "🍬", "🕷️", "🦇"]
-    let emojisAnimals = ["🐮", "🐶", "🐱", "🦆", "🐵", "🦊", "🐸", "🦋", "🐢", "🪱", "🐌", "🐙"]
+    let emojisChristmas = ["🎄", "🎅", "❄️", "⛄️"]
+    let emojisHalloween = ["🎃", "👻", "🕸️", "👿", "🧟‍♀️"]
+    let emojisAnimals = ["🐮", "🐶", "🐱", "🦆", "🐵", "🦊"]
     
     @State var currentEmojis: [String] = []
     
@@ -57,13 +57,13 @@ struct ContentView: View {
     func changeTheme(to themeName: String) {
         currentEmojis = switch themeName {
         case "Xmas" :
-            emojisChristmas
+            emojisChristmas + emojisChristmas
         case "Halloween":
-            emojisHalloween
+            emojisHalloween + emojisHalloween
         case "Animals":
-            emojisAnimals
+            emojisAnimals + emojisAnimals
         default:
-            emojisAnimals
+            emojisAnimals + emojisAnimals
         }
     }
 }
