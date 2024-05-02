@@ -52,7 +52,7 @@ struct ContentView: View {
     }
     
     var themeChangers: some View {
-        HStack(alignment: .center) {
+        HStack(alignment: .bottom) {
             ThemeButton(text: Themes.ChristmasTheme.name, imageName: Themes.ChristmasTheme.icon) { apply(theme: Themes.ChristmasTheme.name) }
             ThemeButton(text: Themes.HalloweenTheme.name, imageName: Themes.HalloweenTheme.icon) { apply(theme: Themes.HalloweenTheme.name) }
             ThemeButton(text: Themes.AnimalsTheme.name, imageName: Themes.AnimalsTheme.icon) { apply(theme: Themes.AnimalsTheme.name) }
@@ -70,11 +70,12 @@ struct ContentView: View {
             }, label: {
                 VStack {
                     Image(systemName: imageName)
-                    Text(text)
+                    Text(text).font(.caption)
                 }
             })
             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
-            .border(.black)}
+            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+        }
     }
     
     func apply(theme: String) {
@@ -94,7 +95,7 @@ struct ContentView: View {
 
 struct CardView: View {
     let content: String
-    @State var isFaceUp = true
+    @State var isFaceUp = false
     
     var body: some View {
         ZStack {
