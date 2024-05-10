@@ -12,12 +12,8 @@ struct EmojiMemoryGameView: View {
     
     var body: some View {
         VStack {
-            Text("Memorize!").font(.largeTitle)
             ScrollView {
                 cards.animation(.default, value: viewModel.cards)
-            }
-            Button("Suffle") {
-                viewModel.shuffle()
             }
         }
         .padding()

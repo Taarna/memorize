@@ -40,10 +40,6 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
     }
     
-    mutating func shuffle() {
-        cards.shuffle()
-    }
-    
     struct Card: Equatable, Identifiable, CustomStringConvertible {
         var isFaceUp = false
         var isMatched = false
