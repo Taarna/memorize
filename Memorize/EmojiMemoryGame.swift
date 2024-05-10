@@ -23,11 +23,7 @@ class EmojiMemoryGame: ObservableObject {
         let numberOfPairs = randomEmojis.count > theme.numberOfPairs ? theme.numberOfPairs : randomEmojis.count
         
         return MemoryGame(numberOfPairsOfCards: numberOfPairs) { pairIndex in
-            if randomEmojis.indices.contains(pairIndex) {
-                return randomEmojis[pairIndex]
-            } else {
-                return "⁉️"
-            }
+            return randomEmojis[pairIndex]
         }
     }
     
