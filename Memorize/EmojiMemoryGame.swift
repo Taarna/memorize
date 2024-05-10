@@ -35,6 +35,15 @@ class EmojiMemoryGame: ObservableObject {
         return model.currentScore
     }
     
+    var themeColor: Color {
+        switch currentTheme.color {
+        case "blue": .blue
+        case "green": .green
+        case "red": .red
+        default: .black
+        }
+    }
+    
     func choose(_ card: MemoryGame<String>.Card) {
         model.choose(card)
     }
