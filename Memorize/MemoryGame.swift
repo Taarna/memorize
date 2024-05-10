@@ -12,6 +12,8 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     private(set) var currentScore: Int
     
     init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
+        assert(numberOfPairsOfCards >= 2, "Min number of pairs is 2")
+        
         cards = []
         for pairIndex in 0..<max(2, numberOfPairsOfCards) {
             let content = cardContentFactory(pairIndex)
