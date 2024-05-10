@@ -15,6 +15,9 @@ struct EmojiMemoryGameView: View {
             ScrollView {
                 cards.animation(.default, value: viewModel.cards)
             }
+            Button("New Game") {
+                viewModel.startNewGame()
+            }
         }
         .padding()
     }
