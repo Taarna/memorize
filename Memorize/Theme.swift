@@ -7,34 +7,24 @@
 
 import Foundation
 
-protocol Theme {
-    var name: String { get }
-    var emojis: Array<String> { get }
-    var numberOfPairs: Int { get }
-    var color: String { get }
+struct Theme {
+    var name: String
+    var emojis: Array<String>
+    var numberOfPairs: Int
+    var color: String
 }
 
-struct GameThemes {
-    struct Animals: Theme {
-        var name = "Animals"
-        var emojis = ["🐶","🐱","🐭","🦊","🐸","🐤"]
-        var numberOfPairs = 4
-        var color = "green"
-    }
-    struct Vehicles: Theme {
-        var name = "Vehicles"
-        var emojis = ["🚗","🚙","🚎","🛺","🚢","✈️", "🏎️"]
-        var numberOfPairs = 7
-        var color = "red"
-    }
-    struct Food: Theme {
-        var name = "Food"
-        var emojis = ["🫐","🥨","🍔","🍖"]
-        var numberOfPairs = 10
-        var color = "blue"
+struct Themes {
+    private static let Animals = Theme(name: "Animals", emojis: ["🐶","🐱","🐭","🦊","🐸","🐤"], numberOfPairs: 4, color:"green")
+    private static let Vehicles = Theme(name: "Vehicles", emojis: ["🚗","🚙","🚎","🛺","🚢","✈️", "🏎️"], numberOfPairs: 7, color: "red")
+    private static let Food = Theme(name: "Food", emojis: ["🫐","🥨","🍔","🍖", "🍕", "🍤", "🍰", "🍡", "🌮"], numberOfPairs: 8, color: "blue")
+    
+    private static var allThemes: Array<Theme> {
+        [Animals, Vehicles, Food]
     }
     
-    func random() -> Theme {
-        return [Animals(), Vehicles(), Food()].randomElement() as! Theme
+    static func randomTheme() -> Theme {
+        let randomIndex = Int.random(in: allThemes.indices)
+        return allThemes[randomIndex]
     }
 }
