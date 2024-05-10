@@ -7,23 +7,34 @@
 
 import Foundation
 
-struct Theme {
-    struct Animals {
-        let name = "Animals"
-        let emoji = ["🐶","🐱","🐭","🦊","🐸","🐤"]
-        let numberOfPairs = 4
-        let color = "green"
+protocol Theme {
+    var name: String { get }
+    var emojis: Array<String> { get }
+    var numberOfPairs: Int { get }
+    var color: String { get }
+}
+
+struct GameThemes {
+    struct Animals: Theme {
+        var name = "Animals"
+        var emojis = ["🐶","🐱","🐭","🦊","🐸","🐤"]
+        var numberOfPairs = 4
+        var color = "green"
     }
-    struct Vehicles {
-        let name = "Vehicles"
-        let emoji = ["🚗","🚙","🚎","🛺","🚢","✈️", "🏎️"]
-        let numberOfPairs = 7
-        let color = "red"
+    struct Vehicles: Theme {
+        var name = "Vehicles"
+        var emojis = ["🚗","🚙","🚎","🛺","🚢","✈️", "🏎️"]
+        var numberOfPairs = 7
+        var color = "red"
     }
-    struct Food {
-        let name = "Food"
-        let emoji = ["🫐","🥨","🍔","🍖"]
-        let numberOfPairs = 10
-        let color = "blue"
+    struct Food: Theme {
+        var name = "Food"
+        var emojis = ["🫐","🥨","🍔","🍖"]
+        var numberOfPairs = 10
+        var color = "blue"
+    }
+    
+    func random() -> Theme {
+        return [Animals(), Vehicles(), Food()].randomElement() as! Theme
     }
 }
