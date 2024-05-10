@@ -13,6 +13,7 @@ struct EmojiMemoryGameView: View {
     var body: some View {
         VStack {
             Text("\(viewModel.getGameName())").font(.title)
+            Text("Current score: \(viewModel.currentScore)")
             ScrollView {
                 cards.animation(.default, value: viewModel.cards)
             }

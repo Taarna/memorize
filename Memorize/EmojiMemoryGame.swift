@@ -31,6 +31,10 @@ class EmojiMemoryGame: ObservableObject {
         return model.cards
     }
     
+    var currentScore: Int {
+        return model.currentScore
+    }
+    
     func choose(_ card: MemoryGame<String>.Card) {
         model.choose(card)
     }
