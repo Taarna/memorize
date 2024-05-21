@@ -9,14 +9,20 @@ import Foundation
 
 struct MemoryGame<CardContent> where CardContent: Equatable {
     private(set) var cards: Array<Card>
+    private(set) var currentScore: Int
     
     init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
+        assert(numberOfPairsOfCards >= 2, "Min number of pairs is 2")
+        
         cards = []
         for pairIndex in 0..<max(2, numberOfPairsOfCards) {
             let content = cardContentFactory(pairIndex)
             cards.append(Card(content: content, id: "\(pairIndex + 1)a"))
             cards.append(Card(content: content, id: "\(pairIndex + 1)b"))
         }
+        cards.shuffle()
+        
+        currentScore = 0
     }
     
     var indexOfTheFaceUpCard: Int? {
@@ -31,6 +37,16 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                     if cards[chosenIndex].content == cards[potentialMatchIndex].content {
                         cards[chosenIndex].isMatched = true
                         cards[potentialMatchIndex].isMatched = true
+                        scoreMatch()
+                    } else {
+                        if (cards[chosenIndex].isSeen) {
+                            scoreMismatch()
+                        }
+                        if (cards[potentialMatchIndex].isSeen) {
+                            scoreMismatch()
+                        }
+                        cards[chosenIndex].isSeen = true
+                        cards[potentialMatchIndex].isSeen = true
                     }
                 } else {
                     indexOfTheFaceUpCard = chosenIndex
@@ -40,19 +56,28 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
     }
     
-    mutating func shuffle() {
-        cards.shuffle()
+    mutating func scoreMatch() -> Void {
+        currentScore += 2
+    }
+    
+    mutating func scoreMismatch() -> Void {
+        currentScore -= 1
     }
     
     struct Card: Equatable, Identifiable, CustomStringConvertible {
         var isFaceUp = false
         var isMatched = false
+        var isSeen = false
         let content: CardContent
         
         var id: String
         var description: String {
             "content = \(content) isFaceUp = \(isFaceUp)"
         }
+    }
+    
+    func getCurrentScore() -> Int {
+        return currentScore
     }
 }
 
